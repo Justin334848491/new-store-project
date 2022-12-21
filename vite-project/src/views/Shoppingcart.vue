@@ -1,14 +1,15 @@
 <template>
-    <h1> Shoppingcart</h1>
+    <h1> Shopping Cart</h1>
+    <p>Click a movie to REMOVE it from the cart</p>
     <input type="button" id="Return2" value="Back" @click="Return4()">
 
     <br> <br>
 
     <div class="objects">
 
-        <img id="picture" @click="testFunction()" v-for="option in movieOptions" :src="option.poster" />
-    
-</div>
+        <img id="picture" @click="testFunction(option.position)" v-for="option in movieOptions" :src="option.poster" />
+
+    </div>
 </template>
 
 <script setup>
@@ -20,13 +21,9 @@ import router from '../router';
 const index = indexStore()
 const { shoppingcart } = storeToRefs(index);
 let movieOptions = ref(shoppingcart.value);
-let movieTitles = ref([]);
 
-function testFunction() {
-    myModal.style.display = "block"
-}
-function close() {
-    myModal.style.display = "none"
+function testFunction(slot) {
+    index.removeMovieItem(slot);
 }
 
 window.onclick = function (event) {
@@ -39,16 +36,6 @@ window.onclick = function (event) {
 function Return4() {
     router.push("/Mainstore");
 }
-
-for (let i = 0; i < shoppingcart.value.length; i++) {
-    movieTitles.value.push(shoppingcart.value[i].title)
-}
-
-function DeleteButton(arraySlot) {
-    index.removeMovieItem(arraySlot);
-}
-
-
 
 </script>
 

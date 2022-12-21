@@ -24,7 +24,7 @@ export const indexStore = defineStore("main", {
       this.isMovie = true;
     },
     removeMovieItem(arraySlot) {
-      this.movieItems.splice(arraySlot, 1)
+      this.shoppingcart.splice(arraySlot, 1)
     },
   },
 });

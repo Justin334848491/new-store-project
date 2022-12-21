@@ -71,7 +71,8 @@ function addItems() {
 
     index.addItems({
         title: title.value,
-        poster: poster.value
+        poster: poster.value,
+        position: shoppingcart.value.length,
     });
 }
 

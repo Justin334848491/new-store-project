@@ -2,7 +2,7 @@
 
 <MainMenuHeader/>
 <MainMenuHero/>
-<MainMenuFooter/>
+<MainMenuFooter id="footer"/>
 
 </template>
 
