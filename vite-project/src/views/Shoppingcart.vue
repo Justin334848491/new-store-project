@@ -1,14 +1,11 @@
 <template>
     <h1> Shopping Cart</h1>
-    <p>Click a movie to REMOVE it from the cart</p>
-    <input type="button" id="Return2" value="Back" @click="Return4()">
-
+    <input type="button" id="Return2" value="Back to Mainstore" @click="Return4()">
+    <input type="button" id="deletion" value="Remove Item" @click="Deletion()">
     <br> <br>
-
     <div class="objects">
 
         <img id="picture" @click="testFunction(option.position)" v-for="option in movieOptions" :src="option.poster" />
-
     </div>
 </template>
 
@@ -21,20 +18,28 @@ import router from '../router';
 const index = indexStore()
 const { shoppingcart } = storeToRefs(index);
 let movieOptions = ref(shoppingcart.value);
+let removeItem = ref("false")
 
 function testFunction(slot) {
+    console.log(slot)
+    if(removeItem.value === "true"){
     index.removeMovieItem(slot);
-}
-
-window.onclick = function (event) {
-    if (event.target == myModal) {
-        myModal.style.display = "none";
+    removeItem.value = "false";
+    console.log(shoppingcart.value);
+    movieOptions.value = shoppingcart.value
     }
 }
 
+function Deletion() {
+    removeItem.value = "true"
+}
 
 function Return4() {
     router.push("/Mainstore");
+}
+
+function test() {
+    console.log(movieOptions.value)
 }
 
 </script>

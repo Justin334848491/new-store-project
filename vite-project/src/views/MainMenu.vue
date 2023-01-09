@@ -2,7 +2,7 @@
 
 <MainMenuHeader/>
 <MainMenuHero/>
-<MainMenuFooter id="footer"/>
+<MainMenuFooter id="bottom"/>
 
 </template>
 
@@ -13,6 +13,11 @@
 </script>
 
 <style scoped>
+
+#bottom {
+    position: absolute;
+    bottom: 0%;
+}
 
 </style>
 

@@ -1,18 +1,12 @@
 <template>
     <h1> Galaxy Movie Database </h1>
     <input type="button" id="Return" @click="Return3()" value="HomePage">
-
     <input type="button" id="Signin" @click="Shoppingcart()" value="Shopping Cart">
-
     <br> <br>
-
     <div id="backgroundModal" ref="backgroundModal" @click=""></div>
     <div class="objects">
-
-        <img id="picture" @click="testFunction(option.text.id)" :id="option.text.id" v-for="option in Options" :src="option.text.posterimage">
-
-        
-
+        <img id="picture" @click="testFunction(option.text.id)" :id="option.text.id" v-for="option in Options"
+            :src="option.text.posterimage">
         <div id="myModal" class="modal">
             <div id="modalContent">
                 <h1 id="modalTitle"> {{ title }} </h1>
@@ -22,18 +16,16 @@
                 <br>
                 <img :src="poster" id="ModalImage" />
                 <p> Release Date: {{ releasedate }} </p>
-                <p> Runtime: {{ runtime }}</p>
+                <p> Runtime: {{ runtime }} </p>
             </div>
-
         </div>
     </div>
-
 </template>
 
 <script setup>
 import { storeToRefs } from 'pinia';
 import { indexStore } from "../store/index.js";
-import { ref, vModelRadio } from "vue";
+import { ref } from "vue";
 import router from '../router';
 import axios from "axios";
 
@@ -49,8 +41,8 @@ let releasedate = ref("")
 let poster = ref("")
 let runtime = ref("")
 let overview = ref("")
-
 let backgroundModal = ref();
+let Options = movies.value
 
 index.finishedMovie()
 
@@ -63,8 +55,8 @@ function Shoppingcart() {
 }
 
 function addItems() {
-    for (let i = 0; i < shoppingcart.value.length; i ++){
-        if (title.value === shoppingcart.value[i].title){
+    for (let i = 0; i < shoppingcart.value.length; i++) {
+        if (title.value === shoppingcart.value[i].title) {
             return;
         }
     }
@@ -76,7 +68,7 @@ function addItems() {
     });
 }
 
-let searchMovies = axios.get(`https://api.themoviedb.org/3/discover/movie?`, {
+axios.get(`https://api.themoviedb.org/3/discover/movie?`, {
     params: {
         api_key: "e06cb446302dcf3a3cb1358720141aad",
         append_to_response: "videos",
@@ -96,13 +88,11 @@ let searchMovies = axios.get(`https://api.themoviedb.org/3/discover/movie?`, {
         }
     })
 
-let Options = movies.value
-
 function testFunction(id) {
     myModal.style.display = "block"
     backgroundModal.value.style.display = "block";
 
-    let movies = axios.get(`https://api.themoviedb.org/3/movie/${id}`, {
+    axios.get(`https://api.themoviedb.org/3/movie/${id}`, {
         params: {
             api_key: "e06cb446302dcf3a3cb1358720141aad",
             append_to_response: "videos",
@@ -116,14 +106,9 @@ function testFunction(id) {
             poster.value = "https://image.tmdb.org/t/p/w500" + movies.data.poster_path
             releasedate.value = movies.data.release_date
             runtime.value = movies.data.runtime
-
             movieID.value = id;
 
         });
-}
-
-function close() {
-    myModal.style.display = "none"
 }
 
 window.onclick = function (event) {
@@ -135,27 +120,7 @@ window.onclick = function (event) {
 
 </script>
 
-
-
 <style scoped>
-#shoppingcartButton {
-    position: absolute;
-
-    left: 290px;
-    bottom: 35px;
-}
-
-#addToCart {
-    position: absolute;
-
-    left: 400px;
-    bottom: 35px;
-}
-
-#myModal {
-    z-index: 101;
-}
-
 .objects {
     display: grid;
     align-self: center;
@@ -181,43 +146,26 @@ window.onclick = function (event) {
     top: 0;
     width: 100%;
     height: 100%;
-
     background-color: rgb(0, 0, 0);
-    background-color: rgba(0, 0, 0, 0.4);
+    background-color: rgba(0, 0, 0, 0.65);
+
     /* Black w/ opacity */
 }
 
 #modalContent {
+    opacity: 100%;
     position: absolute;
     left: 8.75vw;
     top: 6.5vw;
     padding: 20px;
     border: 1px solid #888;
     width: 80vw;
-    /* Could be more or less, depending on screen size */
-    height: 400px;
+    height: 38vw;
+    background-image: url("https://wallpaper.dog/large/980753.jpg");
 
-    background-color: black;
 }
 
-#backgroundModal {
-    display: none;
-
-    position: absolute;
-
-    background-color: black;
-    opacity: 50%;
-
-    z-index: 100;
-
-    height: 100%;
-    width: 100%;
-
-    top: 0px;
-    left: 0px;
-}
-
-.close:hover,
+#backgroundModal .close:hover,
 .close:focus {
     color: black;
     text-decoration: none;
@@ -226,21 +174,14 @@ window.onclick = function (event) {
 
 #modalTitle {
     color: white;
-
-    margin-left: 275px;
-
-    text-align: left;
 }
 
 #ModalImage {
-    width: 18vw;
-    height: 28vw;
+    width: 18.5vw;
+    height: 27vw;
     position: absolute;
     float: left;
-
-    top: 30px;
-    left: 20px;
-
+    left: 1vw;
 }
 
 #modalTitle {
@@ -248,19 +189,11 @@ window.onclick = function (event) {
 }
 
 p {
-    margin-left: 275px;
+    left: 20vw;
     font-size: 1vw;
-
-    text-align: left;
 }
-
-
 
 #summary {
     font-size: 1.25vw;
-
-    margin-left: 275px;
-
-    text-align: left;
 }
 </style>

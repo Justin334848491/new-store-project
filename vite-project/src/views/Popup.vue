@@ -11,13 +11,10 @@
 </template>
 
 <script setup>
-import { storeToRefs } from 'pinia';
-import { indexStore } from "../store/index.js";
-import { ref } from "vue";
 import router from '../router';
 
 function Return2() {
-    router.push("./playerStats");
+    router.push("./Login");
 }
 </script>
 

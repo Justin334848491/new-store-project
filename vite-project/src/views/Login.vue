@@ -1,7 +1,6 @@
 <template>
     <h1> Login Page </h1>
     <input type="button" id="Return" @click="Return()" value="Back">
-
     <input type="button" id="Signin" @click="Login2()" value="login">
     <br> <br> <br>
     <form @submit="Login2()">
@@ -35,7 +34,6 @@ function Login2() {
     }
 }
 
-
 </script>
 
 <style>
@@ -58,7 +56,6 @@ div {
 
 body {
     color: white;
-    background-image: url("https://parlonssciences.ca/sites/default/files/2019-09/Milky%20Way%20galaxy%20as%20seen%20from%20Australia.jpg");
-    background-size: 1920px;
+    background-image: url("https://wallpapercave.com/wp/agLijth.jpg");
 }
 </style>

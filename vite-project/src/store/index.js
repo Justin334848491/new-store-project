@@ -1,5 +1,4 @@
 import { defineStore } from "pinia";
-import axios from "axios";
 
 export const indexStore = defineStore("main", {
   state: () => ({
@@ -13,18 +12,16 @@ export const indexStore = defineStore("main", {
     addItems(id) {
       this.shoppingcart.push(id);
     },
-    displayMovies(text, id, posterimage) {
+    displayMovies(text) {
       this.movies.push({
         text,
-        id,
-        posterimage,
       });
     },
     finishedMovie() {
       this.isMovie = true;
     },
     removeMovieItem(arraySlot) {
-      this.shoppingcart.splice(arraySlot, 1)
+    this.shoppingcart.splice(arraySlot, 1)
     },
   },
 });
