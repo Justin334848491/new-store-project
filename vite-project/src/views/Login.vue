@@ -1,40 +1,48 @@
-<template>
-    <h1> Login Page </h1>
-    <input type="button" id="Return" @click="Return()" value="Back">
-    <input type="button" id="Signin" @click="Login2()" value="login">
-    <br> <br> <br>
-    <form @submit="Login2()">
-        <div id="Username"> Username: <input type="text" ref="usernameinput"></div>
-        <br>
-        <div id="Password"> Password: <input type="password" ref="passwordinput"></div>
-    </form>
-
-
-</template>
-
 <script setup>
-import { storeToRefs } from 'pinia';
-import { indexStore } from "../store/index.js";
 import { ref } from "vue";
-import router from '../router';
-
-const usernameinput = ref("")
-const passwordinput = ref("")
-
-function Return() {
-    router.push("/");
-}
-
-function Login2() {
-    if (passwordinput.value.value != "movies" || usernameinput.value.value != "tmdb") {
-        router.push("/Popup");
-    }
-    else {
-        router.push("./Mainstore");
-    }
-}
-
+import { auth } from "../firebase/index";
+import {
+  createUserWithEmailAndPassword,
+  GoogleAuthProvider,
+  signInWithPopup,
+} from "firebase/auth";
+const username = ref("");
+const email = ref("");
+const password1 = ref("");
+const password2 = ref("");
+const registerUserByEmail = async () => {
+  if (password1.value !== password2.value) {
+    console.log("Password issue");
+    return;
+  }
+  try {
+    await createUserWithEmailAndPassword(auth, email.value, password1.value);
+  } catch (error) {
+    console.log(error);
+  }
+};
+const registerUserByGoogle = async () => {
+  const provider = new GoogleAuthProvider();
+  const user = await signInWithPopup(auth, provider);
+  console.log(user);
+};
 </script>
+
+<template>
+  <div>
+    <h1>Login</h1>
+    <h2>Register by Google</h2>
+    <button @click="registerUserByGoogle">Google</button>
+    <h2>Register by email</h2>
+    <form @submit.prevent="registerUserByEmail()">
+      <input v-model="username" type="text" placeholder="username" /> <br>
+      <input v-model="email" type="email" placeholder="email" /> <br>
+      <input v-model="password1" type="password" placeholder="password" /> <br>
+      <input v-model="password2" type="password" placeholder="re-enter password" /> <br>
+      <input type="submit" value="Register" />
+    </form>
+  </div>
+</template>
 
 <style>
 #Return {

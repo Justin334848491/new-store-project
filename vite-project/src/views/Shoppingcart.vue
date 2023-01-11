@@ -22,11 +22,11 @@ let removeItem = ref("false")
 
 function testFunction(slot) {
     console.log(slot)
-    if(removeItem.value === "true"){
-    index.removeMovieItem(slot);
-    removeItem.value = "false";
-    console.log(shoppingcart.value);
-    movieOptions.value = shoppingcart.value
+    if (removeItem.value === "true") {
+        index.removeMovieItem(slot);
+        removeItem.value = "false";
+        console.log(shoppingcart.value);
+        movieOptions.value = shoppingcart.value
     }
 }
 
